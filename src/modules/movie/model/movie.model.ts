@@ -1,6 +1,7 @@
 import {
   AllowNull,
   Column,
+  DataType,
   HasMany,
   Model,
   PrimaryKey,
@@ -9,10 +10,10 @@ import {
 import { Comment } from '../../comment/model/comment.model';
 import { Reaction } from '../../reaction/model/reaction.model';
 
-@Table({ tableName: 'movie' })
-export class Movie extends Model {
+@Table({ tableName: 'movie', timestamps: false })
+export class Movie extends Model<Movie> {
   @PrimaryKey
-  @Column
+  @Column({ type: DataType.UUID, autoIncrement: true })
   id: string;
 
   @AllowNull(false)
