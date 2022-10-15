@@ -2,6 +2,7 @@ import {
   AllowNull,
   BelongsTo,
   Column,
+  DataType,
   ForeignKey,
   Model,
   PrimaryKey,
@@ -9,10 +10,10 @@ import {
 } from 'sequelize-typescript';
 import { Movie } from '../../movie/model/movie.model';
 
-@Table({ tableName: 'comment', freezeTableName: true })
-export class Comment extends Model {
+@Table({ tableName: 'comment', timestamps: false })
+export class Comment extends Model<Comment> {
   @PrimaryKey
-  @Column
+  @Column({ type: DataType.UUID, autoIncrement: true })
   id: string;
 
   @AllowNull(false)
