@@ -2,6 +2,7 @@ import {
   AllowNull,
   BelongsTo,
   Column,
+  DataType,
   ForeignKey,
   Model,
   PrimaryKey,
@@ -10,14 +11,14 @@ import {
 import { Movie } from '../../movie/model/movie.model';
 import { ReactionTypes } from '../enums';
 
-@Table({ tableName: 'reaction', freezeTableName: true })
-export class Reaction extends Model {
+@Table({ tableName: 'reaction', timestamps: false })
+export class Reaction extends Model<Reaction> {
   @PrimaryKey
-  @Column
+  @Column({ type: DataType.UUID, autoIncrement: true })
   id: string;
 
   @AllowNull(false)
-  @Column
+  @Column({ type: DataType.ENUM(...Object.values(ReactionTypes)) })
   type: ReactionTypes;
 
   @ForeignKey(() => Movie)

@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Comment } from '../comment/model/comment.model';
+import { Reaction } from '../reaction/model/reaction.model';
 import { CreateMovieDto } from './dto/createMovie.dto';
 import { UpdateMovieDto } from './dto/updateMovie.dto';
 import { Movie } from './model/movie.model';
@@ -18,12 +19,14 @@ export class MovieService {
   }
 
   async findAll() {
-    return await this.movieModel.findAll<Movie>({ include: [Comment] });
+    return await this.movieModel.findAll<Movie>({
+      include: [Comment, Reaction],
+    });
   }
 
   async findOne(id: string) {
     const movie = await this.movieModel.findByPk<Movie>(id, {
-      include: [Comment],
+      include: [Comment, Reaction],
     });
     if (!movie) {
       throw new HttpException('No post found', HttpStatus.NOT_FOUND);
