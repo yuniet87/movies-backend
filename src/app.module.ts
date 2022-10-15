@@ -6,9 +6,11 @@ import { AppService } from './app.service';
 import { Comment } from './modules/comment/model/comment.model';
 import { Movie } from './modules/movie/model/movie.model';
 import { MovieModule } from './modules/movie/movie.module';
+import { Rating } from './modules/rating/model/rating.model';
 import { Reaction } from './modules/reaction/model/reaction.model';
 import { ReactionModule } from './modules/reaction/reaction.module';
 import { CommentModule } from './modules/comment/comment.module';
+import { RatingModule } from './modules/rating/rating.module';
 
 @Module({
   imports: [
@@ -21,12 +23,13 @@ import { CommentModule } from './modules/comment/comment.module';
         database: process.env.DB_NAME,
         username: process.env.DB_USER,
         password: process.env.DB_PASS,
-        models: [Movie, Reaction, Comment],
+        models: [Movie, Reaction, Comment, Rating],
       }),
     }),
     MovieModule,
     ReactionModule,
     CommentModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
